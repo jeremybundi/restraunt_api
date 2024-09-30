@@ -1,0 +1,17 @@
+{
+    "name": "jeremy/restraunt_api",
+    "autoload": {
+        "psr-4": {
+            "Jeremy\\RestrauntApi\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "jeremy"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.9",
+        "firebase/php-jwt": "^6.10"
+    }
+}
