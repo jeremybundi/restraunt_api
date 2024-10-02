@@ -126,6 +126,16 @@ $router->addPost('/room/reservation/status/cancel/{id}', [
     'controller' => 'RoomReservationStatus',
     'action' => 'cancel'
 ]);
+//room bookings all 
+$router->addGet('/room/booking/reservations', [
+    'controller' => 'RoomBookingReservation',
+    'action' => 'listAllReservations',
+]);
+//room booking per customer
+$router->addGet('/room/reservations/customer/{customerId:[0-9]+}', [
+    'controller' => 'RoomBookingReservation',
+    'action' => 'getCustomerReservations',
+]);
 
 
 $router->handle($_SERVER['REQUEST_URI']);
