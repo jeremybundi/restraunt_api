@@ -54,7 +54,7 @@ class AdminController extends Controller
         $admin->email = $request->email;
         $admin->password = password_hash($request->password, PASSWORD_DEFAULT);
         $admin->phone_number = $request->phone_number;
-        $admin->role_id = 3; // Default role
+        $admin->role_id = 3; // Default role (Tables Admin)
         $admin->is_verified = 0; // Not verified by default
     
         if ($admin->save() === false) {
@@ -63,7 +63,6 @@ class AdminController extends Controller
             return $response;
         }
     
-        // Correct response creation
         $response = new Response();
         $response->setJsonContent(['status' => 'success', 'message' => 'Admin registered successfully']);
         return $response;
@@ -140,11 +139,24 @@ class AdminController extends Controller
             return $response;
         }
 
-        // Generate JWT token
-        $token = $this->generateJwt($admin->id, $admin->role_id);
+        // Retrieve the admin role name
+        $role = $admin->getRole();
+
+        if (!$role) {
+            $response = new Response();
+            $response->setJsonContent(['status' => 'error', 'message' => 'Role not found']);
+            return $response;
+        }
+
+        // Generate JWT token with role name
+        $token = $this->generateJwt($admin->id, $role->role_name);
 
         $response = new Response();
-        $response->setJsonContent(['status' => 'success', 'token' => $token, 'role' => $admin->role_id]);
+        $response->setJsonContent([
+            'status' => 'success', 
+            'token' => $token, 
+            'role' => $role->role_name
+        ]);
         return $response;
     }
 
@@ -157,12 +169,12 @@ class AdminController extends Controller
             $mail->Host       = 'smtp.gmail.com';
             $mail->SMTPAuth   = true;
             $mail->Username   = 'jeremybundi45@gmail.com';
-            $mail->Password   = 'your-email-password'; // Make sure to replace this
+            $mail->Password   = 'mwpfauuqoolgpdwm'; // Replace with your real email password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port       = 587;
 
             // Recipients
-            $mail->setFrom('jeremybundi45@gmail.com', 'SWahili Resort');
+            $mail->setFrom('jeremybundi45@gmail.com', 'Swahili Resort');
             $mail->addAddress($email);
 
             $mail->isHTML(true);
@@ -176,18 +188,18 @@ class AdminController extends Controller
         return true;
     }
 
-    private function generateJwt($adminId, $roleId)
+    private function generateJwt($adminId, $roleName)
     {
         $key = $this->config->jwt->secret_key; // Your secret key
         $payload = [
             'iss' => 'your-issuer', // Issuer of the token
             'aud' => 'your-audience', // Audience of the token
             'iat' => time(), // Issued at
-            'exp' => time() + 3600, // Expiration time (1 hour)
+            'exp' => time() + 36000, // Expiration time (1 hour)
             'adminId' => $adminId,
-            'roleId' => $roleId
+            'role' => $roleName // Pass role name instead of ID
         ];
 
-        return JWT::encode($payload, $key, 'HS256'); // Include the algorithm parameter
+        return JWT::encode($payload, $key, 'HS256');
     }
 }

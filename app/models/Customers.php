@@ -2,21 +2,19 @@
 
 use Phalcon\Mvc\Model;
 
-class Room extends Model
+class Customers extends Model
 {
     public $id;
-    public $image_url;
-    public $room_number;
-    public $room_type;
-    public $capacity;
-    public $price_per_night;
-    public $status;
+    public $name;
+    public $email;
+    public $phone_number;
+    public $otp;
     public $created_at;
     public $updated_at;
 
     public function initialize()
     {
-        $this->setSource('rooms');
+        $this->setSource('customers');
     }
 
     public function beforeSave()

@@ -10,6 +10,7 @@ use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Session\Adapter\Stream as SessionAdapter;
 use Phalcon\Session\Manager as SessionManager;
 use Phalcon\Url as UrlResolver;
+use Firebase\JWT\JWT;
 
 /**
  * Shared configuration service
@@ -82,7 +83,6 @@ $di->setShared('db', function () {
     return new $class($params);
 });
 
-
 /**
  * If the configuration specify the use of metadata adapter use it or use memory otherwise
  */
@@ -119,4 +119,11 @@ $di->setShared('session', function () {
     $session->start();
 
     return $session;
+});
+
+/**
+ * Register the JWT service
+ */
+$di->setShared('jwt', function () {
+    return new JWT();
 });

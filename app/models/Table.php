@@ -2,21 +2,20 @@
 
 use Phalcon\Mvc\Model;
 
-class Room extends Model
+class Table extends Model
 {
     public $id;
+    public $table_number;
     public $image_url;
-    public $room_number;
-    public $room_type;
     public $capacity;
-    public $price_per_night;
+    public $deposit_per_hour;
     public $status;
     public $created_at;
     public $updated_at;
 
     public function initialize()
     {
-        $this->setSource('rooms');
+        $this->setSource('tables');
     }
 
     public function beforeSave()

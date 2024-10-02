@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'jeremy/restraunt_api',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => 'a7ab9681523923c37ec3b55d3cb446e2b2aba054',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -20,9 +20,9 @@
             'dev_requirement' => false,
         ),
         'jeremy/restraunt_api' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'a7ab9681523923c37ec3b55d3cb446e2b2aba054',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
