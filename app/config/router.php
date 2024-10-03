@@ -109,10 +109,27 @@ $router->addPost('/table/reservations/{id}', [
     'controller' => 'TableReservationStatus',
     'action' => 'confirm'
 ]);
-//cancel reserves
-$router->addPut('/table/reservations/{id}', [
-    'controller' => 'TableReservationStatus',
-    'action' => 'cancel'
+// Route for getting all table reservations
+$router->addGet(
+    '/table/getall/reservations',
+    [
+        'controller' => 'TableBookingReservation',
+        'action'     => 'getAllReservations',
+    ]
+);
+
+// Route for getting table reservations by customer ID
+$router->addGet(
+    '/table/reservations/customerId',
+    [
+        'controller' => 'TableBookingReservation',
+        'action'     => 'getReservationsByCustomerId',
+    ]
+);
+//get reservations by id
+$router->addGet('/table/reservations/getbyId/{customerId}', [
+    'controller' => 'TableBookingReservation',
+    'action' => 'getReservationsByCustomerId'
 ]);
 
 // Confirm Room Reservation
@@ -131,8 +148,8 @@ $router->addGet('/room/booking/reservations', [
     'controller' => 'RoomBookingReservation',
     'action' => 'listAllReservations',
 ]);
-//room booking per customer
-$router->addGet('/room/reservations/customer/{customerId:[0-9]+}', [
+//room booked per customer id
+$router->addGet('/room/reservations/customer', [
     'controller' => 'RoomBookingReservation',
     'action' => 'getCustomerReservations',
 ]);
